@@ -3,7 +3,7 @@ import JWT from "../utils/jwt.js";
 import validator from "validator";
 
 class UserService {
-  // USER REGISTER SERVICE
+  // User Register Service
   async register({ name, email, password }) {
     if (!validator.isEmail(email)) {
       throw new Error("Invalid email address");
@@ -17,7 +17,7 @@ class UserService {
     return { user, token };
   }
 
-  // USER LOGIN SERVICE
+  // User Login Service
   async login({ email, password }) {
     const user = await User.findOne({ email });
     if (!user) throw new Error("Invalid credentials");
@@ -28,7 +28,8 @@ class UserService {
     const token = JWT.generateToken({ id: user._id });
     return { user, token };
   }
-  // USER PROFILE SERVICE
+
+  // User Profie Service
   async getProfile(userId) {
     return User.findById(userId).select("-password");
   }
