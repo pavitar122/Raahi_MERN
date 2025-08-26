@@ -4,8 +4,11 @@ import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.post("/register", (req, res) => userController.register(req, res));
-router.post("/login", (req, res) => userController.login(req, res));
-router.get("/profile", auth, (req, res) => userController.profile(req, res));
+// Use the controller methods from the UserController instance
+router.post("/register", userController.registerUser.bind(userController));
+router.post("/login", userController.loginUser.bind(userController));
+router.post("/logout", userController.logoutUser.bind(userController));
+router.get("/profile", auth, userController.getUserProfile.bind(userController));
+
 
 export default router;
