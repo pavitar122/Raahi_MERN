@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes.js";
 import captainRoutes from "./routes/captain.routes.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
@@ -11,6 +12,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors());
 
 // Home Route
 app.get("/", (req, res) => {

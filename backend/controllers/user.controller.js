@@ -5,8 +5,8 @@ class UserController {
   // Register User
   async register(req, res) {
     try {
-      const { name, email, password } = req.body;
-      const { user, token } = await userService.register({ name, email, password });
+      const { name, email, password, phone } = req.body;
+      const { user, token } = await userService.register({ name, email, password, phone });
 
       Cookie.setTokenCookie(res, token);
 
