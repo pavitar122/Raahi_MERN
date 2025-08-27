@@ -1,27 +1,24 @@
-importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/9.0.0/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js');
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDV49EwzG7IyBpYs0sDkied8KtUHKEwWoc",
-  authDomain: "sawari-c6045.firebaseapp.com",
-  projectId: "sawari-c6045",
-  storageBucket: "sawari-c6045.firebasestorage.app",
-  messagingSenderId: "698078845187",
-  appId: "1:698078845187:web:9753b7192d179a31ce3136",
-  measurementId: "G-WWL77FV57Y"
-};
-
+firebase.initializeApp({
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+});
 
 const messaging = firebase.messaging();
 
-messaging.onBackgroundMessage(function(payload) {
-  console.log("Received background message ", payload);
-  const notificationTitle = payload.notification.title;
+messaging.onBackgroundMessage((payload) => {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+
+  const notificationTitle = payload.notification?.title || 'Notification';
   const notificationOptions = {
-    body: payload.notification.body,
-    icon: '/logo.png'
+    body: payload.notification?.body || 'No content available',
+    icon: payload.notification?.image || '/default-icon.png'
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);

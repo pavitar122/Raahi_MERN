@@ -1,16 +1,20 @@
-import express from "express";
-import { sendNotification } from "../utils/fcm.js";
+app.post("/send-notification", async (req, res) => {
+  const { token, title, body, image } = req.body;
 
-const router = express.Router();
+  const message = {
+    token,
+    notification: {
+      title,
+      body,
+      image,
+    },
+  };
 
-router.post("/send-notification", async (req, res) => {
-  const { token, title, body } = req.body;
   try {
-    await sendNotification(token, title, body);
-    res.json({ success: true, message: "Notification sent!" });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    const response = await admin.messaging().send(message);
+    res.json({ success: true, response });
+  } catch (error) {
+    console.error("Error sending notification:", error);
+    res.status(500).json({ success: false, error: error.message });
   }
 });
-
-export default router;

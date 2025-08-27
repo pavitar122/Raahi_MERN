@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes.js";
 import captainRoutes from "./routes/captain.routes.js";
 import cookieParser from "cookie-parser";
-import notificationRoutes from "./routes/notification.route.js";
 import cors from "cors";
+import admin from "./firebase.js"
 
 dotenv.config();
 const app = express();
@@ -23,7 +23,29 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/captains", captainRoutes);
-app.use("/api", notificationRoutes);
+
+app.post("/send-notification", async (req, res) => {
+  const { token, title, body } = req.body;
+
+  const message = {
+    token,
+    notification: {
+      title,
+      body,
+      image: "/default-icon.png"
+    },
+  };
+
+  try {
+    const response = await admin.messaging().send(message);
+    res.json({ success: true, response });
+  } catch (error) {
+    console.error("Error sending notification:", error);
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+
 
 
 // DB connection

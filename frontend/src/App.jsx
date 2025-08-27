@@ -1,17 +1,21 @@
 import { Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
 import Start from './pages/Start'
 import LoginUser from "./pages/LoginUser"
 import RegisterUser from './pages/RegisterUser'
 import Home from './pages/Home'
-import { requestNotificationPermission, onForegroundMessage } from "./notifications/firebase";
-import { useEffect } from 'react'
+import { generateToken, messaging } from './notifications/firebase'
+import { getMessaging, onMessage } from "firebase/messaging";
 
 
 
 const App = () => {
+
   useEffect(() => {
-    requestNotificationPermission();
-    onForegroundMessage();
+    generateToken();
+    onMessage(messaging, (payload) => {
+      console.log(payload, "message recieved");
+    })
   }, []);
 
   return (
