@@ -3,17 +3,17 @@ import Start from './pages/Start'
 import LoginUser from "./pages/LoginUser"
 import RegisterUser from './pages/RegisterUser'
 import Home from './pages/Home'
-import { requestNotificationPermission, onForegroundMessage } from "./firebase";
+import { requestNotificationPermission, onForegroundMessage } from "./notifications/firebase";
+import { useEffect } from 'react'
 
-function App() {
+
+
+const App = () => {
   useEffect(() => {
     requestNotificationPermission();
     onForegroundMessage();
   }, []);
-}
 
-
-const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Start />} />
