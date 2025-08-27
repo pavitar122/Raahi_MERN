@@ -3,6 +3,14 @@ import Start from './pages/Start'
 import LoginUser from "./pages/LoginUser"
 import RegisterUser from './pages/RegisterUser'
 import Home from './pages/Home'
+import { requestNotificationPermission, onForegroundMessage } from "./firebase";
+
+function App() {
+  useEffect(() => {
+    requestNotificationPermission();
+    onForegroundMessage();
+  }, []);
+}
 
 
 const App = () => {
@@ -10,7 +18,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Start />} />
       <Route path="/loginUser" element={<LoginUser />} />
-       <Route path="/registerUser" element={<RegisterUser />} />
+      <Route path="/registerUser" element={<RegisterUser />} />
       <Route path="/home" element={<Home />} />
     </Routes>
   )

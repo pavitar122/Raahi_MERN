@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes.js";
 import captainRoutes from "./routes/captain.routes.js";
 import cookieParser from "cookie-parser";
+import notificationRoutes from "./routes/notification.route.js";
 import cors from "cors";
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/captains", captainRoutes);
+app.use("/api", notificationRoutes);
 
 
 // DB connection
