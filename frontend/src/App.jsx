@@ -4,26 +4,9 @@ import Start from './pages/Start'
 import LoginUser from "./pages/LoginUser"
 import RegisterUser from './pages/RegisterUser'
 import Home from './pages/Home'
-import { generateToken, messaging } from './notifications/firebase'
-import { getMessaging, onMessage } from "firebase/messaging";
-
 
 
 const App = () => {
-
-  useEffect(() => {
-    onMessage(messaging, (payload) => {
-      console.log("Foreground notification:", payload);
-
-      if (Notification.permission === "granted") {
-        new Notification(payload.notification.title, {
-          body: payload.notification.body,
-          icon: payload.notification.image || "/default-icon.png",
-        });
-      }
-    });
-  }, []);
-
   return (
     <Routes>
       <Route path="/" element={<Start />} />
