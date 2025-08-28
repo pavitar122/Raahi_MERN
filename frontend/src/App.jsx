@@ -12,23 +12,15 @@ import { getMessaging, onMessage } from "firebase/messaging";
 const App = () => {
 
   useEffect(() => {
-    // generateToken();
-    // onMessage(messaging, (payload) => {
-    //   console.log(payload, "message recieved");
-    // })
     onMessage(messaging, (payload) => {
       console.log("Foreground notification:", payload);
 
-      // Option 1: Show native phone notification
       if (Notification.permission === "granted") {
         new Notification(payload.notification.title, {
           body: payload.notification.body,
           icon: payload.notification.image || "/default-icon.png",
         });
       }
-
-      // Option 2: Show custom in-app alert
-      // alert(`${payload.notification.title}: ${payload.notification.body}`);
     });
   }, []);
 

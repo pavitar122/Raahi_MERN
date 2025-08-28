@@ -7,7 +7,7 @@ const Start = () => {
         const token = localStorage.getItem("fcmToken");
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/send-notification`, {
-                token: token, // replace with actual device token
+                token: token, 
                 title: "Hello from Raahi!",
                 body: "This is your test notification."
             });
