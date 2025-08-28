@@ -23,8 +23,7 @@ export const generateToken = async () => {
             vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY
         })
         console.log(token);
+        localStorage.setItem("fcmToken", token);
+        return token;
     }
-
-
-
 }
