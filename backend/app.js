@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes.js";
 import captainRoutes from "./routes/captain.routes.js";
-import pushRoutes from "./routes/push.routes.js"
+import pushTokenRoutes from "./routes/push.routes.js"
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import bodyParser from "body-parser";
@@ -25,9 +25,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/captains", captainRoutes);
-app.use("/api/push", pushRoutes);
-
-
+app.use("/api", pushTokenRoutes);
 
 // DB connection
 mongoose
